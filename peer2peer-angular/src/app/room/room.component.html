@@ -1,0 +1,41 @@
+<!-- Registration Code starts Here -->
+
+<div id="room-div" *ngIf="!submitted" class="form-container">
+  <form #roomForm="ngForm" (ngSubmit)="register()">
+    <h1>Join the fun</h1>
+    <div>
+      <input id="name" name="name" [(ngModel)]="user.name" placeholder="Enter user name." required type="text" />
+    </div>
+    <div>
+      <input id="room" name="room" [(ngModel)]="user.room" placeholder="Enter room name." required type="text" />
+    </div>
+    <button type="submit" [disabled]="!roomForm.form.valid">JOIN</button>
+  </form>
+</div>
+<!-- Registration code ends here -->
+
+<div class="main-container" *ngIf="submitted">
+  <div class="video-container">
+    <video class="main-video" [hidden]="key!=selectedParticipant" *ngFor="let key of objectkeys(participants)" autoplay [muted]="'true'"
+      [srcObject]="participants[key] && participants[key].stream"></video>
+  </div>
+  <!-- <div class="video-container blur-video-container">
+    <video class="main-video" autoplay [muted]="'true'" [srcObject]="participants[selectedParticipant] && participants[selectedParticipant].stream"></video>
+  </div> -->
+  <div class="buttons-row">
+    <div class="icon-wrapper">
+      <img class="icon video-mute" src="../assets/images/video-symbol.png" />
+    </div>
+    <div class="icon-wrapper end-call-wrapper">
+      <img class="icon end-call white-end-call-icon" src="../assets/images/end-call-red.png" />
+      <img class="icon end-call red-end-call-icon" src="../assets/images/end-call-white.png" />
+    </div>
+    <div class="icon-wrapper">
+      <img class="icon audio-mute" src="../assets/images/mic-symbol.png" />
+    </div>
+  </div>
+  <div class="video-pipcontainter">
+    <video class="pip-video" [class.selected]="key==selectedParticipant" *ngFor="let key of objectkeys(participants)" [srcObject]="participants[key].stream"
+      autoplay [muted]="participants[key].isLocal" (click)="selectedParticipant = key"></video>
+  </div>
+</div>
