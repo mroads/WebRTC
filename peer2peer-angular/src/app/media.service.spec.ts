@@ -70,7 +70,7 @@ describe('MediaService', () => {
       expect(service.constraints.qvga.video.height.exact).toBe(240);
     }));
 
-  })
+  });
 
   describe('GUM', () => {
 
@@ -89,6 +89,6 @@ describe('MediaService', () => {
       expect(navigator.mediaDevices.getUserMedia).toHaveBeenCalledWith(constraints);
     }));
 
-  })
+  });
 
 });

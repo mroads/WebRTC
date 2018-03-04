@@ -7,7 +7,7 @@ export class WebsocketService {
 
   ee = new EventEmitter();
 
-  interval:any;
+  interval: any;
 
   constructor() {
     console.info('initializing websocket');

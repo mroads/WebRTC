@@ -1,4 +1,4 @@
-import { Participant } from "./participant";
+import { Participant } from './participant';
 
 describe('Participant', () => {
     let participant: Participant;
@@ -25,7 +25,7 @@ describe('Participant', () => {
 
     describe('subscribe:method', () => {
 
-        var observers = 0;
+        let observers = 0;
 
         function callback(arg) {
             console.info('this is a mock callback', arg);
@@ -81,6 +81,4 @@ describe('Participant', () => {
         });
 
     });
-
-
 });
