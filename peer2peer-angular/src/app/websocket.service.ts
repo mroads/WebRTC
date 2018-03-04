@@ -7,6 +7,8 @@ export class WebsocketService {
 
   ee = new EventEmitter();
 
+  interval:any;
+
   constructor() {
     console.info('initializing websocket');
     this.ws = new WebSocket('wss://ptp.mroads.com:7443/groupcall');
@@ -16,7 +18,7 @@ export class WebsocketService {
   }
 
   startPingInterval() {
-    setInterval(() => {
+    this.interval = setInterval(() => {
       this.sendMessage({ id: 'ping' });
     }, 30000);
   }
@@ -33,6 +35,7 @@ export class WebsocketService {
 
   onClose() {
     console.info('WebSocket is closed', arguments);
+    clearInterval(this.interval);
   }
 
   onMessage(event) {
