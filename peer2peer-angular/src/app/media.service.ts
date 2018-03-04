@@ -19,14 +19,14 @@ export class MediaService {
     'uhd': {
       video: { width: { exact: 4096 }, height: { exact: 2160 } }
     }
-  }
+  };
 
   constructor() { }
 
   gum(videoConstraint, audioFlag) {
-    let constraints = this.constraints[videoConstraint];
+    const constraints = this.constraints[videoConstraint];
     constraints.audio = audioFlag;
-    return navigator.mediaDevices.getUserMedia(constraints)
+    return navigator.mediaDevices.getUserMedia(constraints);
   }
 
 }

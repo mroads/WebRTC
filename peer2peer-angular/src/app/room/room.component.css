@@ -19,9 +19,6 @@
     margin-top: 10px; 
 }
 
-.main-container {
-
-}
 .main-video{
     position: absolute;
     left: 0;
@@ -31,6 +28,7 @@
     height: 100%;
     vertical-align: baseline;
     background: black;
+    object-fit: cover;
 }
 .pip-video {
     border: 1px solid #ddd;
@@ -81,6 +79,15 @@
 .icon-wrapper:hover {
     background-color: red;
 }
+
+.icon-wrapper.disabled{
+    background-color: red;
+}
+
+.icon-wrapper.disabled:hover {
+    background-color: grey;
+}
+
 .end-call-wrapper:hover .white-end-call-icon {
     display: none;
 }
@@ -111,4 +118,14 @@
 
 .selected{
     border: 5px solid skyblue;
+}
+
+.fadeOut{
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.fadeIn{
+    opacity: 1;
+    transition: all 1s;
 }

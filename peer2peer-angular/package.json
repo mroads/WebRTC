@@ -25,6 +25,7 @@
     "forms-angular": "^0.11.0",
     "ngx-pipes": "^2.1.2",
     "rxjs": "^5.5.6",
+    "tslint-angular": "^1.1.1",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

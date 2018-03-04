@@ -8,7 +8,7 @@ export class WebsocketService {
   ee = new EventEmitter();
 
   constructor() {
-    console.info("initializing websocket");
+    console.info('initializing websocket');
     this.ws = new WebSocket('wss://ptp.mroads.com:7443/groupcall');
     this.ws.onopen = this.onOpen.bind(this);
     this.ws.onclose = this.onClose.bind(this);
@@ -17,8 +17,8 @@ export class WebsocketService {
 
   startPingInterval() {
     setInterval(() => {
-      this.sendMessage({ id: 'ping' })
-    }, 30000)
+      this.sendMessage({ id: 'ping' });
+    }, 30000);
   }
 
   addEventListener(listener) {
@@ -27,22 +27,22 @@ export class WebsocketService {
 
 
   onOpen() {
-    console.info("web socket is opened");
+    console.info('web socket is opened');
     this.startPingInterval();
   }
 
   onClose() {
-    console.info("WebSocket is closed", arguments);
+    console.info('WebSocket is closed', arguments);
   }
 
   onMessage(event) {
-    console.info("message received", event.data);
-    var message = JSON.parse(event.data);
+    console.info('message received', event.data);
+    const message = JSON.parse(event.data);
     this.ee.emit(message);
   }
 
   sendMessage(message) {
-    var stringMessage = JSON.stringify(message);
+    const stringMessage = JSON.stringify(message);
     this.waitForConnection(function () {
       this.ws.send(stringMessage);
     }.bind(this), 1000);
