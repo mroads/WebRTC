@@ -21,36 +21,39 @@ export class Participant {
     }
 
 
+    onIceCandidate(event) {
+        console.info('new candidate generated for sender', this.name,
+            event.candidate);
+        if (event.candidate) {
+            const message = {
+                id: 'iceCandidate',
+                candidate: event.candidate,
+                sender: this.name
+            };
+            this.ee.emit(message);
+        }
+    }
+
+    onIceConnectionStateChange() {
+        console.info('ice connection state changed for ', name, this.pc.iceConnectionState);
+    }
+
+    onAddStream(event) {
+        console.info('remote stream detected', name, event.stream);
+        this.stream = event.stream;
+    }
+
+    onRemoveStream() {
+        console.info('stream removed');
+        this.stream = undefined;
+    }
+
     handlePC(stream) {
         this.pc.addStream(stream);
-        const that = this;
-        this.pc.onicecandidate = function (event) {
-            console.info('new candidate generated for sender', that.name,
-                event.candidate);
-            if (event.candidate) {
-                const message = {
-                    id: 'iceCandidate',
-                    candidate: event.candidate,
-                    sender: that.name
-                };
-                that.ee.emit(message);
-            }
-        };
-
-        this.pc.onaddstream = function (event) {
-            console.info('remote stream detected', name, event.stream);
-            that.stream = event.stream;
-            that.ee.emit({ id: 'updateZone' });
-        };
-
-        this.pc.oniceconnectionstatechange = function () {
-            console.info('ice connection state changed for ', name, this.iceConnectionState);
-        };
-
-        this.pc.onremovestream = function (event) {
-            console.info('stream removed');
-            that.stream = undefined;
-        };
+        this.pc.onicecandidate = this.onIceCandidate.bind(this);
+        this.pc.onaddstream = this.onAddStream.bind(this);
+        this.pc.oniceconnectionstatechange = this.onIceConnectionStateChange.bind(this);
+        this.pc.onremovestream = this.onRemoveStream.bind(this);
     }
 
     createPeers(stream) {
@@ -59,12 +62,12 @@ export class Participant {
         this.handlePC(stream);
     }
 
-    dispose = function () {
+    dispose() {
         console.log('Disposing participant ' + this.name);
         if (this.pc) {
             this.pc.close();
         }
-    };
+    }
 
     generateSdp() {
         const that = this;
