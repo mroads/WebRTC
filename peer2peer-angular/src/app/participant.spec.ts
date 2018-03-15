@@ -1,9 +1,10 @@
 import { Participant } from './participant';
+import { resolve } from 'q';
 
 describe('Participant', () => {
     let participant: Participant;
 
-    beforeEach(() => {
+    beforeAll(() => {
         participant = new Participant('vijay', true);
     });
 
@@ -169,8 +170,9 @@ describe('Participant', () => {
             stream: new MediaStream()
         };
 
-        beforeEach(() => {
+        beforeAll(() => {
             spyOn(console, 'info');
+            spyOn(participant.ee, 'emit');
             participant.onAddStream(event);
         });
 
@@ -180,6 +182,10 @@ describe('Participant', () => {
 
         it('should set event.stream to participant.stream', () => {
             expect(participant.stream).toBe(event.stream);
+        });
+
+        it('should emit updatezone event', () => {
+            expect(participant.ee.emit).toHaveBeenCalledWith({ id: 'updateZone' });
         });
 
     });
@@ -262,5 +268,195 @@ describe('Participant', () => {
             }
         });
     });
+
+
+    describe('addTrack:method', () => {
+        beforeEach(() => {
+            participant.pc = new RTCPeerConnection(undefined);
+            spyOn(participant.pc, 'addTrack');
+            participant.addTrack('track');
+        });
+
+        it('should call pc.addTrack with track and stream', () => {
+            expect(participant.pc.addTrack).toHaveBeenCalledWith('track', participant.localStream);
+        });
+
+        afterEach(() => {
+            if (participant.pc) {
+                participant.pc.close();
+            }
+        });
+    });
+
+    describe('addIceCandidate:method', () => {
+        const message = {
+            candidate: 'hello'
+        };
+        beforeEach(() => {
+            participant.pc = new RTCPeerConnection(undefined);
+            spyOn(participant.pc, 'addIceCandidate');
+            participant.addIceCandidate(message);
+        });
+
+        it('should call pc.addIceCandidate with message.candidate', () => {
+            expect(participant.pc.addIceCandidate).toHaveBeenCalledWith(message.candidate);
+        });
+
+        afterEach(() => {
+            if (participant.pc) {
+                participant.pc.close();
+            }
+        });
+    });
+
+    describe('onOffer:method', () => {
+
+        const desc = {
+            sdp: 'hello'
+        };
+
+        beforeEach(() => {
+            participant.pc = new RTCPeerConnection(undefined);
+            spyOn(participant.pc, 'setLocalDescription');
+            spyOn(participant.ee, 'emit');
+            participant.onOffer(desc);
+        });
+
+        it('should call setLocalDescription and emit msg with sdp', () => {
+            expect(participant.pc.setLocalDescription).toHaveBeenCalledWith(desc);
+            expect(participant.ee.emit).toHaveBeenCalledWith({
+                id: 'sdp',
+                sender: participant.name,
+                sdp: desc
+            });
+        });
+
+        afterEach(() => {
+            participant.pc.close();
+            participant.pc = undefined;
+        });
+
+    });
+
+
+    describe('generateSdp:method', () => {
+
+        beforeEach(() => {
+            participant.pc = new RTCPeerConnection(undefined);
+            spyOn(participant.pc, 'createOffer').and.callFake(() => {
+                return new Promise(resolve);
+            });
+            participant.generateSdp();
+        });
+
+        it('should call createOffer', () => {
+            expect(participant.pc.createOffer).toHaveBeenCalled();
+        });
+
+        afterEach(() => {
+            participant.pc.close();
+            participant.pc = undefined;
+        });
+
+    });
+
+
+    describe('createAnswer:method', () => {
+
+        const desc = {
+            sdp: 'hello'
+        };
+
+        beforeEach(() => {
+            participant.pc = new RTCPeerConnection(undefined);
+            spyOn(participant.pc, 'setRemoteDescription').and.callFake(() => {
+                return new Promise(resolve);
+            });
+            participant.createAnswer(desc);
+        });
+
+        it('should call createAnswer', () => {
+            expect(participant.pc.setRemoteDescription).toHaveBeenCalledWith(desc);
+        });
+
+        afterEach(() => {
+            participant.pc.close();
+            participant.pc = undefined;
+        });
+
+    });
+
+
+    describe('removeTrack:method', () => {
+
+        const track = 'test';
+
+        beforeAll(() => {
+            participant.pc = new RTCPeerConnection(undefined);
+            spyOn(participant.pc, 'getSenders').and.callFake(() => {
+                return [{ track: 'test' }, { track: 'test2' }];
+            });
+            spyOn(participant.pc, 'removeTrack');
+            participant.removeTrack(track);
+        });
+
+        it('should call getSenders', () => {
+            expect(participant.pc.getSenders).toHaveBeenCalled();
+        });
+
+        it('should call removeTrack in pc with sender', () => {
+            expect(participant.pc.removeTrack).toHaveBeenCalledWith({ track: 'test' });
+            expect(participant.pc.removeTrack).not.toHaveBeenCalledWith({ track: 'test2' });
+        });
+
+        afterAll(() => {
+            participant.pc.close();
+            participant.pc = undefined;
+        });
+
+    });
+
+
+    describe('onSetDescriptionSuccess:method', () => {
+
+
+        beforeAll(() => {
+            participant.pc = new RTCPeerConnection(undefined);
+            spyOn(participant.pc, 'createAnswer').and.callFake(() => {
+                return new Promise(resolve);
+            });
+            participant.onSetDescriptionSuccess();
+        });
+
+        it('should call createAnswer in pc', () => {
+            expect(participant.pc.createAnswer).toHaveBeenCalled();
+        });
+
+        afterAll(() => {
+            participant.pc.close();
+            participant.pc = undefined;
+        });
+
+    });
+
+
+    describe('onSetDescriptionFailed:method', () => {
+
+
+        beforeAll(() => {
+            spyOn(console, 'error');
+            participant.onSetDescriptionFailed('error');
+        });
+
+        it('should call console.error', () => {
+            expect(console.error).toHaveBeenCalled();
+        });
+
+    });
+
+    afterAll(() => {
+        participant = undefined;
+    });
+
 
 });

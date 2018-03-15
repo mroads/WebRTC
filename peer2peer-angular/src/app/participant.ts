@@ -41,6 +41,7 @@ export class Participant {
     onAddStream(event) {
         console.info('remote stream detected', name, event.stream);
         this.stream = event.stream;
+        this.ee.emit({ id: 'updateZone' });
     }
 
     onRemoveStream() {
@@ -69,17 +70,18 @@ export class Participant {
         }
     }
 
+    onOffer(sdp) {
+        this.pc.setLocalDescription(sdp);
+        const msg = {
+            id: 'sdp',
+            sender: this.name,
+            sdp: sdp
+        };
+        this.ee.emit(msg);
+    }
+
     generateSdp() {
-        const that = this;
-        this.pc.createOffer().then(function (sdp) {
-            that.pc.setLocalDescription(sdp);
-            const msg = {
-                id: 'sdp',
-                sender: that.name,
-                sdp: sdp
-            };
-            that.ee.emit(msg);
-        }).catch(console.error);
+        this.pc.createOffer().then(this.onOffer.bind(this)).catch(console.error);
     }
 
     setSdp(sdp) {
@@ -88,18 +90,7 @@ export class Participant {
     }
 
     createAnswer(desc) {
-        const that = this;
-        this.pc.setRemoteDescription(desc).then(function () {
-            that.pc.createAnswer(function (sdp) {
-                that.pc.setLocalDescription(sdp);
-                const msg = {
-                    id: 'sdp',
-                    sender: that.name,
-                    sdp: sdp
-                };
-                that.ee.emit(msg);
-            }, console.error);
-        }, console.error);
+        this.pc.setRemoteDescription(desc).then(this.onSetDescriptionSuccess.bind(this)).catch(this.onSetDescriptionFailed);
     }
 
     addIceCandidate(message) {
@@ -116,5 +107,14 @@ export class Participant {
 
     addTrack(track) {
         this.pc.addTrack(track, this.localStream);
+    }
+
+    onSetDescriptionSuccess() {
+        this.pc.createAnswer().then(this.onOffer.bind(this)).catch(this.onSetDescriptionFailed);
+    }
+
+
+    onSetDescriptionFailed(error) {
+        console.error('Setting description failed', error);
     }
 }

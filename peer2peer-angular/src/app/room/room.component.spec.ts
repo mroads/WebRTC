@@ -27,4 +27,9 @@ describe('RoomComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  afterEach(() => {
+    document.body.removeChild(fixture.debugElement.nativeElement);
+    fixture.destroy();
+  });
 });
