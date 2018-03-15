@@ -4,7 +4,7 @@ This repository contains WebRTC sample application which has all flashy function
 
 ## Demo
 
-[Tap me!]https://ptp.mroads.com/samples/
+[Tap me!](https://ptp.mroads.com/samples/)
 
 ## Getting Started
 
