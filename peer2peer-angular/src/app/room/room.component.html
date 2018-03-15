@@ -1,5 +1,7 @@
 <!-- Registration Code starts Here -->
-
+<div class="logo">
+  <a href="https://panya.us" target="_blank"><img class="icon" alt="Mroads" src="assets/images/mroads_logo.png" /></a>
+</div>
 <div id="room-div" *ngIf="!submitted" class="form-container">
   <form #roomForm="ngForm" (ngSubmit)="register()">
     <h1>Join the fun</h1>
@@ -24,14 +26,14 @@
   </div> -->
   <div class="buttons-row">
     <div class="icon-wrapper" (click)="toggleVideo()" [class.disabled]="localParticipant && !localParticipant.states.video">
-      <img class="icon video-mute" src="../assets/images/video-symbol.png" />
+      <img class="icon video-mute" src="assets/images/video-symbol.png" />
     </div>
     <div class="icon-wrapper end-call-wrapper">
-      <img class="icon end-call white-end-call-icon" src="../assets/images/end-call-red.png" />
-      <img class="icon end-call red-end-call-icon" src="../assets/images/end-call-white.png" />
+      <img class="icon end-call white-end-call-icon" src="assets/images/end-call-red.png" />
+      <img class="icon end-call red-end-call-icon" src="assets/images/end-call-white.png" />
     </div>
     <div class="icon-wrapper" (click)="toggleAudio()" [class.disabled]="localParticipant && !localParticipant.states.audio">
-      <img class="icon audio-mute" src="../assets/images/mic-symbol.png" />
+      <img class="icon audio-mute" src="assets/images/mic-symbol.png" />
     </div>
   </div>
   <div class="video-pipcontainter">

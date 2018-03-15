@@ -10,7 +10,7 @@ import { MediaService } from '../media.service';
 })
 export class RoomComponent implements OnInit {
 
-  user = { name: 'vijay' + new Date().getTime(), room: 'mroads' };
+  user = { name: '', room: '' };
   submitted = false;
   participants = {};
   selectedParticipant: String = '';
@@ -25,6 +25,7 @@ export class RoomComponent implements OnInit {
 
     // uncomment these lines to auto login
     // window.onload = function () {
+    //   this.user = { name: 'vijay' + new Date().getTime(), room: 'mroads' };
     //   this.register();
     // }.bind(this);
   }
@@ -158,11 +159,11 @@ export class RoomComponent implements OnInit {
   removeTracksAndUpdateSdp(track) {
     this.localStream.removeTrack(track);
     const name = this.user.name;
+    track.stop();
     for (const key in this.participants) {
       if (key !== name) {
         this.participants[key].removeTrack(track);
         this.participants[key].generateSdp();
-        track.stop();
       }
     }
   }
