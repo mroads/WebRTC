@@ -21,12 +21,19 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.ws.addEventListener(this.onMessage.bind(this));
-    window.onload = function () {
-      this.register();
-    }.bind(this);
+
+
+    // uncomment these lines to auto login
+    // window.onload = function () {
+    //   this.register();
+    // }.bind(this);
   }
 
   register() {
+    const detectRTC = require('detectrtc');
+    if (detectRTC && !(detectRTC.isGetUserMediaSupported && detectRTC.isWebRTCSupported)) {
+      console.info('WebRTC is not supported', detectRTC);
+    }
     console.info('user clicked register');
     this.selectedParticipant = this.user.name;
     this.ws.sendMessage({ id: 'joinRoom', name: this.user.name, room: this.user.room });

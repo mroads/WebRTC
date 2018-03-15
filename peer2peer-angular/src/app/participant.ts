@@ -58,7 +58,36 @@ export class Participant {
     }
 
     createPeers(stream) {
-        this.pc = new RTCPeerConnection(null);
+        const configuration = {
+            iceServers: [{
+                'url': 'stun:s1.xirsys.com'
+            }, {
+                'username': '4f5a6500-2893-11e8-be9f-85a6879ba7a1',
+                'url': 'turn:s1.xirsys.com:80?transport=udp',
+                'credential': '4f5a65f0-2893-11e8-84a3-abf00dbef080'
+            }, {
+                'username': '4f5a6500-2893-11e8-be9f-85a6879ba7a1',
+                'url': 'turn:s1.xirsys.com:3478?transport=udp',
+                'credential': '4f5a65f0-2893-11e8-84a3-abf00dbef080'
+            }, {
+                'username': '4f5a6500-2893-11e8-be9f-85a6879ba7a1',
+                'url': 'turn:s1.xirsys.com:80?transport=tcp',
+                'credential': '4f5a65f0-2893-11e8-84a3-abf00dbef080'
+            }, {
+                'username': '4f5a6500-2893-11e8-be9f-85a6879ba7a1',
+                'url': 'turn:s1.xirsys.com:3478?transport=tcp',
+                'credential': '4f5a65f0-2893-11e8-84a3-abf00dbef080'
+            }, {
+                'username': '4f5a6500-2893-11e8-be9f-85a6879ba7a1',
+                'url': 'turns:s1.xirsys.com:443?transport=tcp',
+                'credential': '4f5a65f0-2893-11e8-84a3-abf00dbef080'
+            }, {
+                'username': '4f5a6500-2893-11e8-be9f-85a6879ba7a1',
+                'url': 'turns:s1.xirsys.com:5349?transport=tcp',
+                'credential': '4f5a65f0-2893-11e8-84a3-abf00dbef080'
+            }]
+        };
+        this.pc = new RTCPeerConnection(configuration);
         this.localStream = stream;
         this.handlePC(stream);
     }
