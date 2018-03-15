@@ -53,6 +53,11 @@ Deploy contents in dist folder in a web server of your choice.
 
 * [Angular](https://angular.io/) - The web framework used
 
+
+## Annoncement
+
+This application is not fully tested with mobiles. So, HERE BE DRAGONS!!
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

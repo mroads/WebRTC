@@ -186,4 +186,12 @@ export class RoomComponent implements OnInit {
       elements[i].srcObject = elements[i].srcObject;
     }
   }
+
+
+  leaveRoom() {
+    this.ws.sendMessage({
+      id: 'leaveRoom'
+    });
+    location.reload();
+  }
 }

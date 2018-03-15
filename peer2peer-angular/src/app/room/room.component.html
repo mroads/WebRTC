@@ -1,6 +1,8 @@
 <!-- Registration Code starts Here -->
 <div class="logo">
-  <a href="https://panya.us" target="_blank"><img class="icon" alt="Mroads" src="assets/images/mroads_logo.png" /></a>
+  <a href="https://panya.us" target="_blank">
+    <img class="icon" alt="Mroads" src="assets/images/mroads_logo.png" />
+  </a>
 </div>
 <div id="room-div" *ngIf="!submitted" class="form-container">
   <form #roomForm="ngForm" (ngSubmit)="register()">
@@ -28,7 +30,7 @@
     <div class="icon-wrapper" (click)="toggleVideo()" [class.disabled]="localParticipant && !localParticipant.states.video">
       <img class="icon video-mute" src="assets/images/video-symbol.png" />
     </div>
-    <div class="icon-wrapper end-call-wrapper">
+    <div class="icon-wrapper end-call-wrapper" (click)="leaveRoom()">
       <img class="icon end-call white-end-call-icon" src="assets/images/end-call-red.png" />
       <img class="icon end-call red-end-call-icon" src="assets/images/end-call-white.png" />
     </div>
