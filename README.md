@@ -51,7 +51,7 @@ Deploy contents in dist folder in a web server of your choice.
 
 ## Built With
 
-* [Angular](https://angular.io/) - The web framework used
+* [Angular-5](https://angular.io/) - The web framework used
 
 
 ## Annoncement
