@@ -1,6 +1,6 @@
 # WebRTC samples
 
-This repository contains WebRTC sample application which has all flashy functionalities.
+This repository contains WebRTC sample application which has all flashy functionalities. This application is built using angular 5. Use this as an example and code base to the amazing applications that you are trying to build.
 
 ## Demo
 
