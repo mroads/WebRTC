@@ -140,14 +140,15 @@ export class RoomComponent implements OnInit {
     if (this.localParticipant.states.video) {
       console.log('disabling the video');
       this.localStream.getVideoTracks().forEach(this.removeTracksAndUpdateSdp.bind(this));
+      this.refreshVideoElements();
     } else {
       console.log('enabling the video');
       this.media.gum('hd', false).then(function (stream) {
         stream.getVideoTracks().forEach(this.addTrackAndUpdateSdp.bind(this));
+        this.refreshVideoElements();
       }.bind(this));
     }
     this.localParticipant.states.video = !this.localParticipant.states.video;
-    this.refreshVideoElements();
   }
 
   toggleAudio() {

@@ -9,6 +9,7 @@
 
 .form-container form{
     width: 30%;
+    min-width: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,4 +143,5 @@
 
 .logo .icon{
     width: 8.88889vw;
+    min-width: 100px;
 }
