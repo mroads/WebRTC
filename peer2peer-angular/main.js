@@ -8,7 +8,7 @@ function createWindow () {
     width: 800, 
     height: 800,
     backgroundColor: '#ffffff',
-    icon: `file://${__dirname}/dist/assets/logo.png`
+    icon: `file://${__dirname}/dist/assets/images/mroads_logo.png.icns`
   })
 
 

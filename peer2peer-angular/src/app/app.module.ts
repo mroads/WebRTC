@@ -7,18 +7,23 @@ import { RoomComponent } from './room/room.component';
 import { WebsocketService } from './websocket.service';
 import { MediaService } from './media.service';
 import { NgPipesModule } from 'ngx-pipes';
+import { TestComponent } from './test/test.component';
+import { HttpModule } from '@angular/http';
+
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    RoomComponent
+    RoomComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    NgPipesModule
+    NgPipesModule,
+    HttpModule
   ],
   providers: [WebsocketService, MediaService],
   bootstrap: [AppComponent]

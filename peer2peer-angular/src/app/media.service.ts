@@ -25,7 +25,7 @@ export class MediaService {
 
   gum(videoConstraint, audioFlag) {
     const constraints = this.constraints[videoConstraint];
-    constraints.audio = audioFlag;
+  constraints.audio = audioFlag;
     return navigator.mediaDevices.getUserMedia(constraints);
   }
 

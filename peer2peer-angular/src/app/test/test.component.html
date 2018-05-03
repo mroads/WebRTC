@@ -1,0 +1,19 @@
+<div class="center">
+  <div class="white">
+    <h3>Enter your email address to get all available calls for your email.</h3>
+  </div>
+  <form #roomForm="ngForm" (ngSubmit)="getAllInterviews()">
+    <input type="text" id="email" name="email" [(ngModel)]="email" placeholder="email address goes here." required/>
+    <button type="submit" [disabled]="!roomForm.form.valid">Submit</button>
+  </form>
+</div>
+
+<div id="available-interviews-div" style="display:flex">
+  <div class="center interviews" *ngFor="let interview of interviews">
+    <h2>{{interview.title}}</h2>
+    <span>{{interview.startTime}}</span>
+    <br>
+    <span>{{interview.status}}</span>
+    <button [disabled]="interview.status === 'COMPLETED' || interview.status === 'EXPIRED'" (click)="joinInterview(interview.authToken)">Join!</button>
+  </div>
+</div>

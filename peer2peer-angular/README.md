@@ -1,27 +1,75 @@
-# Peer2peerAngular
+# Peer 2 Peer Demo
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
+This project contains WebRTC sample application which has all the flashy features. This application is built using angular 5 and electron. Use this as an example and code base to the amazing applications that you are trying to build. 
 
-## Development server
+This example consists of Peer to Peer WebRTC application for both web and desktop. Follow instructions to install it.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Demo
 
-## Code scaffolding
+[Tap me!](https://ptp.mroads.com/samples/)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Download Desktop App
 
-## Build
+[Download](https://google.com)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+## Getting Started
 
-## Running unit tests
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+cd peer2peer-angular
+npm install
+ng serve
+```
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Prerequisites
 
-## Further help
+Nodejs
+Angular Cli
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+### Installing
+
+```
+cd peer2peer-angular
+npm install
+ng serve
+```
+
+ open http://localhost:4200
+
+## Running the tests
+
+```
+ng test
+```
+## Deployment
+
+Build peer2peer-application with prod properties.
+
+```
+ng build --prod
+cd dist
+```
+Deploy contents in dist folder in a web server of your choice.
+
+
+## Built With
+
+* [Angular-5](https://angular.io/) - The web framework used
+
+
+## Annoncement
+
+This application is not fully tested with mobiles. So, HERE BE DRAGONS!!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc

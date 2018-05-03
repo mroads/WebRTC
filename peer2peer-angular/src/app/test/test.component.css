@@ -1,0 +1,30 @@
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10%; 
+}
+
+.white{
+    color: white;
+}
+
+.interviews{
+    background-color: white;
+    padding: 10px;
+    margin-left: 10px;
+    flex: 2; 
+}
+
+form{
+    width: 30%;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white; 
+    padding: 10px;
+    border-radius: 5px;
+}

@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "electron-build": "ng build --prod && electron ."
+    "electron-build": "ng build --prod && electron .",
+    "create-installer-mac": "electron-installer-dmg ./peer2peer-angular-darwin-x64/peer2peer-angular.app peer2peer-angular-app --icon=dist/assets/images/mroads_logo.png.icns --overwrite"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
     "detectrtc": "^1.3.5",
+    "electron-installer-dmg": "^0.2.1",
     "forms-angular": "^0.11.0",
     "ngx-pipes": "^2.1.2",
     "rxjs": "^5.5.6",
