@@ -45,3 +45,7 @@ Thumbs.db
 peer2peer-angular-*/**
 release-builds/**
 peer2peer-angular-app.dmg
+
+
+#lock json
+package-lock.json
