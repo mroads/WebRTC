@@ -105,7 +105,7 @@ export default class Call extends React.Component {
             this.state.participants[data.name] = participant;
             this.state.localParticipant = participant;
             const that = this;
-            media.gum('noVideo', true).then(function (stream) {
+            media.gum('uhd', true).then(function (stream) {
                 console.info('got media');
                 participant.stream = stream;
                 that.localStream = stream;
@@ -215,13 +215,14 @@ export default class Call extends React.Component {
         });
         const participants = this.state.participants;
         const selectedParticipant = this.state.selectedParticipant;
+        const localParticipant = this.state.localParticipant;
         return (
             <View style={styles.container}>
                 {mainVideos}
                 <View style={[styles.iconContainer]}>
-                    <MIcon source={require('../../../assets/images/video-symbol.png')} onPress={() => { this.toggleTrack('video') }} disabled={!(this.state.localParticipant && this.state.localParticipant.states.video)} />
+                    <MIcon source={require('../../../assets/images/video-symbol.png')} onPress={() => { this.toggleTrack('video') }} disabled={!(localParticipant && localParticipant.states.video)} />
                     <MIcon source={require('../../../assets/images/end-call-red.png')} onPress={() => { this.leaveRoom() }} />
-                    <MIcon source={require('../../../assets/images/mic-symbol.png')} onPress={() => { this.toggleTrack('audio') }} disabled={!(this.state.localParticipant && this.state.localParticipant.states.audio)} />
+                    <MIcon source={require('../../../assets/images/mic-symbol.png')} onPress={() => { this.toggleTrack('audio') }} disabled={!(localParticipant && localParticipant.states.audio)} />
                 </View>
                 <View style={[styles.pipContainer]}>
                     {pipVideos}
